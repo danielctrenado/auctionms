@@ -1,9 +1,6 @@
 package com.danielctrenado.auctionms.service.impl;
 
-import com.danielctrenado.auctionms.common.dto.AuctionDetailResponseDto;
-import com.danielctrenado.auctionms.common.dto.AuctionDto;
-import com.danielctrenado.auctionms.common.dto.AuctionRequestDto;
-import com.danielctrenado.auctionms.common.dto.CategoryResponseDto;
+import com.danielctrenado.auctionms.common.dto.*;
 import com.danielctrenado.auctionms.service.AuctionService;
 import com.danielctrenado.auctionms.service.CategoryService;
 import lombok.extern.slf4j.Slf4j;
@@ -36,7 +33,7 @@ public class AuctionServiceImplTest {
     void createAuction_ok() {
         String itemName = "name01", itemDesc = "desc01";
         BigDecimal initialPrice = BigDecimal.valueOf(15.50);
-        AuctionDetailResponseDto response = this.createAuction("category1", itemName, itemDesc, initialPrice,
+        AuctionDetailDto response = this.createAuction("category1", itemName, itemDesc, initialPrice,
                 LocalDateTime.now(), LocalDateTime.now().plusHours(72));
 
         assertNotNull(response);
@@ -60,11 +57,11 @@ public class AuctionServiceImplTest {
         assertEquals(numberOfAuctions + 1, auctions.size());
     }
 
-    private AuctionDetailResponseDto createAuction(String category, String itemName, String itemDesc,
-                                                   BigDecimal initialPrice, LocalDateTime auctionStart,
-                                                   LocalDateTime auctionEnd) {
-        CategoryResponseDto categoryResponseDto = this.categoryService.createCategory(category);
-        AuctionRequestDto auctionRequestDto = new AuctionRequestDto(LocalDateTime.now(), initialPrice,
+    private AuctionDetailDto createAuction(String category, String itemName, String itemDesc,
+                                           BigDecimal initialPrice, LocalDateTime auctionStart,
+                                           LocalDateTime auctionEnd) {
+        CategoryResponseDto categoryResponseDto = this.categoryService.createCategory(new CategoryRequestDto(category));
+        AuctionRequestDto auctionRequestDto = new AuctionRequestDto(initialPrice,
                 auctionStart, auctionEnd, itemName, itemDesc, categoryResponseDto.getId());
 
         return this.auctionService.createAuction(auctionRequestDto);

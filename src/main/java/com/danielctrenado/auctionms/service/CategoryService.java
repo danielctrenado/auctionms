@@ -1,11 +1,12 @@
 package com.danielctrenado.auctionms.service;
 
+import com.danielctrenado.auctionms.common.dto.CategoryRequestDto;
 import com.danielctrenado.auctionms.common.dto.CategoryResponseDto;
 
-import java.util.Set;
+import java.util.List;
 
 public interface CategoryService {
-    CategoryResponseDto createCategory(String name);
+    CategoryResponseDto createCategory(CategoryRequestDto categoryRequestDto);
 
-    Set<CategoryResponseDto> getAllCategories();
+    List<CategoryResponseDto> getAllCategories();
 }

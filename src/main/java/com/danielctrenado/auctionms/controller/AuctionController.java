@@ -1,6 +1,6 @@
 package com.danielctrenado.auctionms.controller;
 
-import com.danielctrenado.auctionms.common.dto.AuctionDetailResponseDto;
+import com.danielctrenado.auctionms.common.dto.AuctionDetailDto;
 import com.danielctrenado.auctionms.common.dto.AuctionDto;
 import com.danielctrenado.auctionms.common.dto.AuctionRequestDto;
 import com.danielctrenado.auctionms.service.AuctionService;
@@ -25,12 +25,13 @@ public class AuctionController {
     }
 
     @PostMapping
-    public ResponseEntity<AuctionDetailResponseDto> createAuction(@RequestBody AuctionRequestDto auctionRequestDto) {
+    public ResponseEntity<AuctionDetailDto> createAuction(@RequestBody AuctionRequestDto auctionRequestDto) {
         try {
             log.info(">>> create auction starts");
-            AuctionDetailResponseDto auctionDetailResponseDto = this.auctionService.createAuction(auctionRequestDto);
-            return new ResponseEntity<>(auctionDetailResponseDto, HttpStatus.OK);
+            AuctionDetailDto auctionDetailDto = this.auctionService.createAuction(auctionRequestDto);
+            return new ResponseEntity<>(auctionDetailDto, HttpStatus.CREATED);
         } catch (Exception e) {
+            log.error("Error at createAuction:", e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -39,8 +40,9 @@ public class AuctionController {
     public ResponseEntity<List<AuctionDto>> getAuctions() {
         try {
             log.info(">>> getAuctions");
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>(this.auctionService.getAuctions(), HttpStatus.OK);
         } catch (Exception e) {
+            log.error("Error at getAuctions:", e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

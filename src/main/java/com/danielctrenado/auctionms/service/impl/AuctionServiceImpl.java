@@ -1,6 +1,6 @@
 package com.danielctrenado.auctionms.service.impl;
 
-import com.danielctrenado.auctionms.common.dto.AuctionDetailResponseDto;
+import com.danielctrenado.auctionms.common.dto.AuctionDetailDto;
 import com.danielctrenado.auctionms.common.dto.AuctionDto;
 import com.danielctrenado.auctionms.common.dto.AuctionRequestDto;
 import com.danielctrenado.auctionms.persistence.entity.Auction;
@@ -14,11 +14,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -32,14 +29,15 @@ public class AuctionServiceImpl implements AuctionService {
     private final CategoryRepository categoryRepository;
 
     @Autowired
-    public AuctionServiceImpl(AuctionRepository auctionRepository, ItemRepository itemRepository, CategoryRepository categoryRepository) {
+    public AuctionServiceImpl(AuctionRepository auctionRepository, ItemRepository itemRepository,
+                              CategoryRepository categoryRepository) {
         this.auctionRepository = auctionRepository;
         this.itemRepository = itemRepository;
         this.categoryRepository = categoryRepository;
     }
 
     @Override
-    public AuctionDetailResponseDto createAuction(AuctionRequestDto auctionRequestDto) {
+    public AuctionDetailDto createAuction(AuctionRequestDto auctionRequestDto) {
         Category category = this.categoryRepository.findById(auctionRequestDto.getCategoryId()).orElseThrow();
         Item item = this.itemRepository.save(new Item(auctionRequestDto.getProductName(),
                 auctionRequestDto.getProductDescription(), category));
@@ -47,8 +45,9 @@ public class AuctionServiceImpl implements AuctionService {
                 auctionRequestDto.getAuctionStart(), auctionRequestDto.getAuctionEnd(), item));
 
         log.info("create auction successfully");
-        return new AuctionDetailResponseDto(auction.getCreatedOn(), auction.getInitialPrice(), auction.getAuctionStart(),
-                auction.getAuctionEnd(), item.getName(), item.getDescription(), category.getId(), auction.getId());
+        return new AuctionDetailDto(auction.getInitialPrice(), auction.getAuctionStart(),
+                auction.getAuctionEnd(), item.getName(), item.getDescription(), category.getId(), auction.getId(),
+                auction.getCreatedOn());
     }
 
     @Override

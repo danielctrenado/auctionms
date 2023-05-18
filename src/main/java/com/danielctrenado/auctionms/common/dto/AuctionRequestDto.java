@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AuctionRequestDto {
-    private LocalDateTime createdOn;
     private BigDecimal initialPrice;
     private LocalDateTime auctionStart;
     private LocalDateTime auctionEnd;
