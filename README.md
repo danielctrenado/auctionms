@@ -54,6 +54,8 @@ Category<--> Item (1-*) Aggregation.
 ### Technologies
 Java
 
-Spring Data JPA 
+Spring Boot
 
-Spring Web
+Spring Boot Starter Data JPA 
+
+Spring Starter Web
