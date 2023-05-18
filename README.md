@@ -37,11 +37,23 @@ List of entities: user, item, category, auction, bid.
 Details of each entity:
 
 User: username, firstName, lastName
-Item: name, description and category
+Item: name, description and category.
 Category: name.
 Auction: createdOn, initialPrice, auctionStart and auctionEnd.
 Bid: createdOn, amount
 
-One user creates one Auction and one Auction is created by one user.    Auction <--> User (1-1) Aggregation.
-One auction has one item and one item is associated to one auction.     Auction <--> Item (1-1) Composition.
-One item has one category and one category has many items.              Category<--> Item (1-*) Aggregation.
+One user creates one Auction and one Auction is created by one user.    
+Auction <--> User (1-1) Aggregation.
+
+One auction has one item and one item is associated to one auction.     
+Auction <--> Item (1-1) Composition.
+
+One item has one category and one category has many items.              
+Category<--> Item (1-*) Aggregation.
+
+### Technologies
+Java
+
+Spring Data JPA 
+
+Spring Web

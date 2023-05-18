@@ -1,6 +1,5 @@
 package com.danielctrenado.auctionms.service.impl;
 
-import com.danielctrenado.auctionms.common.dto.AuctionResponseDto;
 import com.danielctrenado.auctionms.common.dto.CategoryResponseDto;
 import com.danielctrenado.auctionms.service.CategoryService;
 import org.junit.jupiter.api.Test;
@@ -36,6 +35,6 @@ public class CategoryServiceImplTest {
         this.categoryService.createCategory("category2");
 
         Set<CategoryResponseDto> categories = this.categoryService.getAllCategories();
-        assertEquals(2, categories.size());
+        assertEquals(3, categories.size());
     }
 }

@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @NoArgsConstructor
@@ -18,21 +19,22 @@ public class Auction {
     private Integer id;
 
     @Column(name = "created_on", columnDefinition = "TIMESTAMP")
-    private LocalTime createdOn;
+    private LocalDateTime createdOn;
 
     @Column(name = "initial_price")
     private BigDecimal initialPrice;
 
     @Column(name = "auction_start", columnDefinition = "TIMESTAMP")
-    private LocalTime auctionStart;
+    private LocalDateTime auctionStart;
 
     @Column(name = "auction_end", columnDefinition = "TIMESTAMP")
-    private LocalTime auctionEnd;
+    private LocalDateTime auctionEnd;
 
     @OneToOne
     private Item item;
 
-    public Auction(LocalTime createdOn, BigDecimal initialPrice, LocalTime auctionStart, LocalTime auctionEnd, Item item) {
+    public Auction(LocalDateTime createdOn, BigDecimal initialPrice, LocalDateTime auctionStart,
+                   LocalDateTime auctionEnd, Item item) {
         this.createdOn = createdOn;
         this.initialPrice = initialPrice;
         this.auctionStart = auctionStart;

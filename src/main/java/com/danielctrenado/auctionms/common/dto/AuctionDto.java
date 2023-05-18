@@ -10,15 +10,10 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AuctionRequestDto {
-    private LocalDateTime createdOn;
+public class AuctionDto {
+    private Integer id;
     private BigDecimal initialPrice;
     private LocalDateTime auctionStart;
     private LocalDateTime auctionEnd;
-
     private String productName;
-    private String productDescription;
-
-    private Integer categoryId;
-
 }
