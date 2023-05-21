@@ -9,5 +9,8 @@ import java.util.List;
 public interface AuctionService {
 
     AuctionDetailDto createAuction(AuctionRequestDto auctionRequestDto);
+
     List<AuctionDto> getAuctions();
+
+    AuctionDto getAuctionById(Integer id);
 }

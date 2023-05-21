@@ -26,7 +26,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public CategoryResponseDto createCategory(CategoryRequestDto categoryRequestDto) {
         Category category = this.categoryRepository.save(new Category(categoryRequestDto.getName()));
-        log.info("category created successfully");
+        log.info("[done] category created");
         return new CategoryResponseDto(category.getId(), category.getName());
     }
 
@@ -34,7 +34,7 @@ public class CategoryServiceImpl implements CategoryService {
     public List<CategoryResponseDto> getAllCategories() {
         List<CategoryResponseDto> categoryResponseDtos = this.categoryRepository.findAll().stream().map(category
                 -> new CategoryResponseDto(category.getId(), category.getName())).collect(Collectors.toList());
-        log.info("getCategories successfully");
+        log.info("[done] getCategories");
         return categoryResponseDtos;
     }
 }

@@ -4,6 +4,7 @@ import com.danielctrenado.auctionms.common.dto.AuctionDetailDto;
 import com.danielctrenado.auctionms.common.dto.AuctionDto;
 import com.danielctrenado.auctionms.common.dto.AuctionRequestDto;
 import com.danielctrenado.auctionms.service.AuctionService;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,7 +26,7 @@ public class AuctionController {
     }
 
     @PostMapping
-    public ResponseEntity<AuctionDetailDto> createAuction(@RequestBody AuctionRequestDto auctionRequestDto) {
+    public ResponseEntity<AuctionDetailDto> createAuction(@RequestBody @Valid AuctionRequestDto auctionRequestDto) {
         try {
             log.info(">>> create auction starts");
             AuctionDetailDto auctionDetailDto = this.auctionService.createAuction(auctionRequestDto);

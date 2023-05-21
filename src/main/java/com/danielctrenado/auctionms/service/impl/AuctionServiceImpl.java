@@ -7,6 +7,7 @@ import com.danielctrenado.auctionms.persistence.entity.Auction;
 import com.danielctrenado.auctionms.persistence.entity.Category;
 import com.danielctrenado.auctionms.persistence.entity.Item;
 import com.danielctrenado.auctionms.persistence.repository.AuctionRepository;
+import com.danielctrenado.auctionms.persistence.repository.BidRepository;
 import com.danielctrenado.auctionms.persistence.repository.CategoryRepository;
 import com.danielctrenado.auctionms.persistence.repository.ItemRepository;
 import com.danielctrenado.auctionms.service.AuctionService;
@@ -44,7 +45,7 @@ public class AuctionServiceImpl implements AuctionService {
         Auction auction = this.auctionRepository.save(new Auction(LocalDateTime.now(), auctionRequestDto.getInitialPrice(),
                 auctionRequestDto.getAuctionStart(), auctionRequestDto.getAuctionEnd(), item));
 
-        log.info("create auction successfully");
+        log.info("[done] create auction");
         return new AuctionDetailDto(auction.getInitialPrice(), auction.getAuctionStart(),
                 auction.getAuctionEnd(), item.getName(), item.getDescription(), category.getId(), auction.getId(),
                 auction.getCreatedOn());
@@ -55,7 +56,16 @@ public class AuctionServiceImpl implements AuctionService {
         List<AuctionDto> auctions = this.auctionRepository.findAll().stream().map(auction
                 -> new AuctionDto(auction.getId(), auction.getInitialPrice(), auction.getAuctionStart(),
                 auction.getAuctionEnd(), auction.getItem().getName())).collect(Collectors.toList());
-        log.info("getAuctions successfully");
+        log.info("[done] getAuctions");
         return auctions;
     }
+
+    @Override
+    public AuctionDto getAuctionById(Integer id) {
+        AuctionDto auctionDto = this.auctionRepository.findById(id).map(auction
+                -> new AuctionDto()).orElseThrow();
+        log.info("[done] getAuctionById {}", id);
+        return auctionDto;
+    }
+
 }

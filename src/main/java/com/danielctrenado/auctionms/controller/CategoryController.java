@@ -3,6 +3,7 @@ package com.danielctrenado.auctionms.controller;
 import com.danielctrenado.auctionms.common.dto.CategoryRequestDto;
 import com.danielctrenado.auctionms.common.dto.CategoryResponseDto;
 import com.danielctrenado.auctionms.service.CategoryService;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,7 +36,7 @@ public class CategoryController {
     }
 
     @PostMapping
-    public ResponseEntity<CategoryResponseDto> createCategory(@RequestBody CategoryRequestDto categoryRequestDto) {
+    public ResponseEntity<CategoryResponseDto> createCategory(@RequestBody @Valid CategoryRequestDto categoryRequestDto) {
         try {
             log.info(">>> create category starts");
             return new ResponseEntity<>(this.categoryService.createCategory(categoryRequestDto), HttpStatus.CREATED);
