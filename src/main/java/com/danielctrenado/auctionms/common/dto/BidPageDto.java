@@ -15,5 +15,5 @@ public class BidPageDto {
     private Integer pageSize;
     private Long totalItems;
     private Integer totalPages;
-    private Boolean last;
+    private boolean last;
 }

@@ -10,7 +10,5 @@ public interface BidService {
 
     BidDto createBidForAuction(Integer auctionId, BidRequestDto bidRequestDto);
 
-    List<BidDto> getBidsForAuction(Integer auctionId);
-
     BidPageDto getBidsByAuction(Integer auctionId, Integer pageNumber, Integer pageSize, String sortBy, String sortOrder);
 }

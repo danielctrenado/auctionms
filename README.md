@@ -61,6 +61,8 @@ Auction <--> Bid (1-*) Composition
 ### Technologies
 Java, JUnit5
 
+Databases: Mysql, H2
+
 Spring Boot Starter Data JPA
 
 Spring Boot Starter Validation
@@ -69,7 +71,7 @@ Spring Boot Starter Web
 
 OpenAPI 3
 
-Databases: Mysql, H2
+Jacoco (Code coverage reports generator for Java projects)
 
 ### REST API
 

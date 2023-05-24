@@ -1,7 +1,7 @@
 package com.danielctrenado.auctionms.controller;
 
+import com.danielctrenado.auctionms.common.dto.CategoryDto;
 import com.danielctrenado.auctionms.common.dto.CategoryRequestDto;
-import com.danielctrenado.auctionms.common.dto.CategoryResponseDto;
 import com.danielctrenado.auctionms.service.CategoryService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +25,7 @@ public class CategoryController {
     }
 
     @GetMapping
-    public ResponseEntity<List<CategoryResponseDto>> getCategories() {
+    public ResponseEntity<List<CategoryDto>> getCategories() {
         try {
             log.info(">>> getCategories starts");
             return new ResponseEntity<>(this.categoryService.getAllCategories(), HttpStatus.OK);
@@ -36,7 +36,7 @@ public class CategoryController {
     }
 
     @PostMapping
-    public ResponseEntity<CategoryResponseDto> createCategory(@RequestBody @Valid CategoryRequestDto categoryRequestDto) {
+    public ResponseEntity<CategoryDto> createCategory(@RequestBody @Valid CategoryRequestDto categoryRequestDto) {
         try {
             log.info(">>> create category starts");
             return new ResponseEntity<>(this.categoryService.createCategory(categoryRequestDto), HttpStatus.CREATED);

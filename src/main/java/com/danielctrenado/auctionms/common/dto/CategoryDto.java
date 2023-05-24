@@ -7,10 +7,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CategoryResponseDto extends CategoryRequestDto {
+public class CategoryDto extends CategoryRequestDto {
     private Integer id;
 
-    public CategoryResponseDto(Integer id, String name) {
+    public CategoryDto(Integer id, String name) {
         super(name);
         this.id = id;
     }

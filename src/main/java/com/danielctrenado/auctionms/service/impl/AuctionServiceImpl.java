@@ -7,7 +7,6 @@ import com.danielctrenado.auctionms.persistence.entity.Auction;
 import com.danielctrenado.auctionms.persistence.entity.Category;
 import com.danielctrenado.auctionms.persistence.entity.Item;
 import com.danielctrenado.auctionms.persistence.repository.AuctionRepository;
-import com.danielctrenado.auctionms.persistence.repository.BidRepository;
 import com.danielctrenado.auctionms.persistence.repository.CategoryRepository;
 import com.danielctrenado.auctionms.persistence.repository.ItemRepository;
 import com.danielctrenado.auctionms.service.AuctionService;
@@ -63,7 +62,8 @@ public class AuctionServiceImpl implements AuctionService {
     @Override
     public AuctionDto getAuctionById(Integer id) {
         AuctionDto auctionDto = this.auctionRepository.findById(id).map(auction
-                -> new AuctionDto()).orElseThrow();
+                -> new AuctionDto(auction.getId(), auction.getInitialPrice(), auction.getAuctionStart(),
+                auction.getAuctionEnd(), auction.getItem().getName())).orElseThrow();
         log.info("[done] getAuctionById {}", id);
         return auctionDto;
     }

@@ -1,7 +1,7 @@
 package com.danielctrenado.auctionms.service.impl;
 
+import com.danielctrenado.auctionms.common.dto.CategoryDto;
 import com.danielctrenado.auctionms.common.dto.CategoryRequestDto;
-import com.danielctrenado.auctionms.common.dto.CategoryResponseDto;
 import com.danielctrenado.auctionms.service.CategoryService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +25,9 @@ public class CategoryServiceImplTest {
     @Test
     void createCategory_ok() {
         String name = "category1";
-        CategoryResponseDto categoryResponseDto = this.categoryService.createCategory(new CategoryRequestDto(name));
-        assertEquals(name, categoryResponseDto.getName());
-        assertNotNull(categoryResponseDto.getId());
+        CategoryDto categoryDto = this.categoryService.createCategory(new CategoryRequestDto(name));
+        assertEquals(name, categoryDto.getName());
+        assertNotNull(categoryDto.getId());
     }
 
     @Test
@@ -35,7 +35,7 @@ public class CategoryServiceImplTest {
         this.categoryService.createCategory(new CategoryRequestDto("category1"));
         this.categoryService.createCategory(new CategoryRequestDto("category2"));
 
-        List<CategoryResponseDto> categories = this.categoryService.getAllCategories();
+        List<CategoryDto> categories = this.categoryService.getAllCategories();
         assertEquals(3, categories.size());
     }
 }

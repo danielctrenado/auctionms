@@ -23,9 +23,9 @@ import java.util.List;
 @Service
 public class BidServiceImpl implements BidService {
 
-    private BidRepository bidRepository;
+    private final BidRepository bidRepository;
 
-    private AuctionRepository auctionRepository;
+    private final AuctionRepository auctionRepository;
 
     @Autowired
     public BidServiceImpl(BidRepository bidRepository, AuctionRepository auctionRepository) {
@@ -39,14 +39,6 @@ public class BidServiceImpl implements BidService {
         Bid bid = this.bidRepository.save(new Bid(LocalDateTime.now(), bidRequestDto.getAmount(), auction));
         log.info("[done] bid {} created for auction {}", bid.getId(), auctionId);
         return new BidDto(bid.getId(), bid.getCreatedOn(), bid.getAmount());
-    }
-
-    @Override
-    public List<BidDto> getBidsForAuction(Integer auctionId) {
-        List<BidDto> lst = this.bidRepository.findByAuctionId(auctionId).stream().map(bid
-                -> new BidDto(bid.getId(), bid.getCreatedOn(), bid.getAmount())).toList();
-        log.info("[done] get bids for auction id {}", auctionId);
-        return lst;
     }
 
     @Override

@@ -1,6 +1,10 @@
 package com.danielctrenado.auctionms.service.impl;
 
-import com.danielctrenado.auctionms.common.dto.*;
+import com.danielctrenado.auctionms.common.dto.AuctionDetailDto;
+import com.danielctrenado.auctionms.common.dto.AuctionDto;
+import com.danielctrenado.auctionms.common.dto.AuctionRequestDto;
+import com.danielctrenado.auctionms.common.dto.CategoryRequestDto;
+import com.danielctrenado.auctionms.common.dto.CategoryDto;
 import com.danielctrenado.auctionms.service.AuctionService;
 import com.danielctrenado.auctionms.service.CategoryService;
 import lombok.extern.slf4j.Slf4j;
@@ -41,8 +45,17 @@ public class AuctionServiceImplTest {
         assertEquals(itemName, response.getProductName());
         assertEquals(itemDesc, response.getProductDescription());
         assertEquals(initialPrice, response.getInitialPrice());
+    }
 
-
+    @Test
+    void getAuctionById_ok() {
+        AuctionDetailDto auctionDetailDto = this.createAuction("Books", "The little prince",
+                "Desc", BigDecimal.valueOf(20.00), LocalDateTime.now(), LocalDateTime.now().plusHours(72));
+        AuctionDto auctionDto = this.auctionService.getAuctionById(auctionDetailDto.getId());
+        assertEquals(auctionDetailDto.getId(), auctionDto.getId());
+        assertEquals(auctionDetailDto.getAuctionStart(), auctionDto.getAuctionStart());
+        assertEquals(auctionDetailDto.getAuctionEnd(), auctionDto.getAuctionEnd());
+        assertEquals(auctionDetailDto.getProductName(), auctionDto.getProductName());
     }
 
     @Test
@@ -54,15 +67,15 @@ public class AuctionServiceImplTest {
         }
 
         List<AuctionDto> auctions = this.auctionService.getAuctions();
-        assertEquals(numberOfAuctions + 1, auctions.size());
+        assertEquals(numberOfAuctions + 2, auctions.size());
     }
 
     private AuctionDetailDto createAuction(String category, String itemName, String itemDesc,
                                            BigDecimal initialPrice, LocalDateTime auctionStart,
                                            LocalDateTime auctionEnd) {
-        CategoryResponseDto categoryResponseDto = this.categoryService.createCategory(new CategoryRequestDto(category));
+        CategoryDto categoryDto = this.categoryService.createCategory(new CategoryRequestDto(category));
         AuctionRequestDto auctionRequestDto = new AuctionRequestDto(initialPrice,
-                auctionStart, auctionEnd, itemName, itemDesc, categoryResponseDto.getId());
+                auctionStart, auctionEnd, itemName, itemDesc, categoryDto.getId());
 
         return this.auctionService.createAuction(auctionRequestDto);
     }
