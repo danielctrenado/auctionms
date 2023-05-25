@@ -24,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 public class CategoryControllerTest {
 
-    private static final String URI_CATEGORIES = "/api/v1/categories";
+    private static final String CATEGORIES_URI = "/api/v1/categories";
 
     @Autowired
     private MockMvc mockMvc;
@@ -37,7 +37,7 @@ public class CategoryControllerTest {
     void getCategories_ok() throws Exception {
         Mockito.when(categoryService.getAllCategories()).thenReturn(List.of());
 
-        this.mockMvc.perform(MockMvcRequestBuilders.get(URI_CATEGORIES)
+        this.mockMvc.perform(MockMvcRequestBuilders.get(CATEGORIES_URI)
                         .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$", hasSize(0)));
@@ -47,7 +47,7 @@ public class CategoryControllerTest {
     void getCategories_serverError() throws Exception {
         Mockito.when(categoryService.getAllCategories()).thenThrow(new RuntimeException("Error"));
 
-        this.mockMvc.perform(MockMvcRequestBuilders.get(URI_CATEGORIES)
+        this.mockMvc.perform(MockMvcRequestBuilders.get(CATEGORIES_URI)
                         .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().is5xxServerError());
     }
@@ -59,7 +59,7 @@ public class CategoryControllerTest {
         Mockito.when(this.categoryService.createCategory(categoryRequestDto)).thenReturn(categoryDto);
 
 
-        this.mockMvc.perform(MockMvcRequestBuilders.post(URI_CATEGORIES)
+        this.mockMvc.perform(MockMvcRequestBuilders.post(CATEGORIES_URI)
                         .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(categoryRequestDto)))
                 .andExpect(status().isCreated())
@@ -72,7 +72,7 @@ public class CategoryControllerTest {
         Mockito.when(this.categoryService.createCategory(categoryRequestDto))
                 .thenThrow(new RuntimeException("Error"));
 
-        this.mockMvc.perform(MockMvcRequestBuilders.post(URI_CATEGORIES)
+        this.mockMvc.perform(MockMvcRequestBuilders.post(CATEGORIES_URI)
                         .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(categoryRequestDto)))
                 .andExpect(status().is5xxServerError());
